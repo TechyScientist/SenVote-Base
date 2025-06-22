@@ -76,6 +76,14 @@ p#success {
     padding: 10px;
 }
 
+p#warning {
+    background-color: #E6B848;
+    color: black;
+    border-radius: 16px;
+    text-align: center;
+    padding: 10px;
+}
+
 p#error {
     background-color: darkred;
     color: white;
