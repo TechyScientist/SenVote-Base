@@ -12,7 +12,10 @@
 </div>
 <div id="body">
     <% if(session.getAttribute("user") == null) response.sendRedirect("index.jsp?error=401 (Unauthorized)&message=You must be signed in to access this page.");
-        User user = (User) session.getAttribute("user"); %>
+        User user = (User) session.getAttribute("user");
+        if(!user.accountActive) { %>
+            <p id="warning"><strong>Warning:</strong> Your account is labelled as <strong>inactive</strong>. You will not be able to participate in any active divisions<% if(user.accessLevel == 1) { %> or perform any administrator functions<% } %>.</p>
+     <% } %>
     <h2>Welcome to SenVote, <%= user.name %>! &emsp;&emsp;&emsp; <a href="SignOutServlet" style="display: inline-block;">Sign Out of SenVote</a></h2>
 
     <a href="votes.jsp">Access Vote List</a>
