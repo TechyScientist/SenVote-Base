@@ -16,7 +16,7 @@
     <h2>Welcome to SenVote, <%= user.name %>! &emsp;&emsp;&emsp; <a href="SignOutServlet" style="display: inline-block;">Sign Out of SenVote</a></h2>
 
     <a href="votes.jsp">Access Vote List</a>
-    <a href="active-votes.jsp">Open Votes</a>
+    <% if(user.accountActive) %> <a href="active-votes.jsp">Open Votes</a>
 
     <% if(user.accessLevel == 1) { %>
         <h3>SenVote Administration</h3>
