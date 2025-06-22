@@ -13,7 +13,7 @@
 <div id="body">
     <% if(session.getAttribute("user") == null) response.sendRedirect("index.jsp?error=401 (Unauthorized)&message=You must be signed in to access this page.");
         User user = (User) session.getAttribute("user"); %>
-    <h2>Welcome to SenVote, <%= user.getName() %>! &emsp; <a href="SignOutServlet" style="display: inline-block;">Sign Out of SenVote</a></h2>
+    <h2>Welcome to SenVote, <%= user.getName() %>! &emsp;&emsp;&emsp; <a href="SignOutServlet" style="display: inline-block;">Sign Out of SenVote</a></h2>
 
 </div>
 
