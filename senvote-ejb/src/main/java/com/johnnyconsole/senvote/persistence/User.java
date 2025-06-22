@@ -1,5 +1,7 @@
 package com.johnnyconsole.senvote.persistence;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,9 +14,10 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    private String username;
-    private String name, password;
-    private int accessLevel;
+    public String username;
+    public String name;
+    private String password;
+    public int accessLevel;
 
     public User() {}
 
@@ -25,40 +28,11 @@ public class User {
         this.accessLevel = accessLevel;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
+    public boolean verifyPassword(String password) {
+        return BCrypt.verifyer().verify(password.toCharArray(), this.password).verified;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public int getAccessLevel() {
-        return accessLevel;
-    }
-
-    public void setAccessLevel(int accessLevel) {
-        this.accessLevel = accessLevel;
-    }
-
-    @Override
-    public String toString() {
-        return "User[username=" + username + ", name=" + name + ", accessLevel=" + accessLevel + "]";
     }
 }
