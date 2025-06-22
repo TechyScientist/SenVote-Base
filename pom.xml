@@ -7,9 +7,16 @@
     <groupId>com.johnnyconsole</groupId>
     <artifactId>senvote-base</artifactId>
     <version>1.0</version>
+    <packaging>pom</packaging>
 
     <name>SenVote Base</name>
     <description>An enterprise computing based application that allows users to record votes on a motion, resolution, or other recorded division for counting purposes</description>
+    <modules>
+        <module>senvote-ear</module>
+        <module>senvote-ejb</module>
+        <module>senvote-web</module>
+        <module>senvote-restful</module>
+    </modules>
 
     <properties>
         <root.dir>${project.basedir}</root.dir>
