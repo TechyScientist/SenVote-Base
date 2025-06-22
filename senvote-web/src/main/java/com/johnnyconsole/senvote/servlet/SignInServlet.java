@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/SignInServlet")
@@ -32,7 +31,7 @@ public class SignInServlet extends HttpServlet {
 
             User user = userDao.getUser(username);
             if(user != null) {
-                if(BCrypt.verifyer().verify(password.toCharArray(), user.getPassword().toCharArray()).verified) {
+                if(user.verifyPassword(password)) {
                     request.getSession().setAttribute("user", user);
                     response.sendRedirect("dashboard.jsp");
                 }

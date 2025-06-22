@@ -1,6 +1,5 @@
 package com.johnnyconsole.senvote.persistence.impl;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.johnnyconsole.senvote.persistence.User;
 import com.johnnyconsole.senvote.persistence.interfaces.UserDaoLocal;
 
@@ -66,7 +65,7 @@ public class UserDaoImpl implements UserDaoLocal {
     @Override
     public boolean removeUser(User user, String myUsername) {
         try {
-            if (user.getUsername().equals(myUsername)) {
+            if (user.username.equals(myUsername)) {
                 return false;
             }
             manager.remove((manager.contains(user) ? user : manager.merge(user)));
@@ -81,8 +80,7 @@ public class UserDaoImpl implements UserDaoLocal {
     public boolean verifyUser(String username, String passwordPlainText) {
         try {
             User user = getUser(username);
-            return BCrypt.verifyer().verify(passwordPlainText.getBytes(),
-                    user.getPassword().getBytes()).verified;
+            return user.verifyPassword(passwordPlainText);
         } catch (Exception e) {
             return false;
         }
