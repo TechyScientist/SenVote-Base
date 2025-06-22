@@ -9,13 +9,13 @@
     <version>1.0</version>
     <packaging>pom</packaging>
 
-    <name>SenVote Base</name>
+    <name>SenVote</name>
     <description>An enterprise computing based application that allows users to record votes on a motion, resolution, or other recorded division for counting purposes</description>
     <modules>
         <module>senvote-ear</module>
         <module>senvote-ejb</module>
         <module>senvote-web</module>
-        <module>senvote-restful</module>
+        <!-- <module>senvote-restful</module> -->
     </modules>
 
     <properties>
@@ -38,7 +38,21 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>senvote-ejb</artifactId>
+                <version>${project.version}</version>
+                <type>ejb</type>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>senvote-web</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+                <scope>compile</scope>
+            </dependency>
         </dependencies>
+
     </dependencyManagement>
 
     <dependencies>
