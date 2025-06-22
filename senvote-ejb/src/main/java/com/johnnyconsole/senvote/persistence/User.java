@@ -18,14 +18,16 @@ public class User {
     public String name;
     private String password;
     public int accessLevel;
+    public boolean accountActive;
 
     public User() {}
 
-    public User(String username, String name, String password, int accessLevel) {
+    public User(String username, String name, String password, int accessLevel, boolean accountActive) {
         this.username = username;
         this.name = name;
         this.password = password;
         this.accessLevel = accessLevel;
+        this.accountActive = accountActive;
     }
 
     public boolean verifyPassword(String password) {
