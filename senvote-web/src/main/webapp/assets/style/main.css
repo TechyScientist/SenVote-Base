@@ -64,13 +64,16 @@ hr {
     border-radius: 16px;
 }
 
+p {
+    margin-bottom: 10px;
+}
+
 p#success {
     background-color: darkgreen;
     color: white;
     border-radius: 16px;
     text-align: center;
     padding: 10px;
-    margin-bottom: 10px;
 }
 
 p#error {
@@ -79,5 +82,4 @@ p#error {
     border-radius: 16px;
     text-align: center;
     padding: 10px;
-    margin-bottom: 10px;
 }
