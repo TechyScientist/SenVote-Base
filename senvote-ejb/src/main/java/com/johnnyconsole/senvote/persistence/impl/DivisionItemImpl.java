@@ -51,8 +51,7 @@ public class DivisionItemImpl implements DivisionItemDaoLocal {
     @Override
     public int count() {
         try {
-            Query query = manager.createNamedQuery("DivisionItem.FindCount");
-            return (int)  query.getSingleResult();
+            return all().size();
         }  catch(Exception e) {
             return 0;
         }
@@ -61,8 +60,7 @@ public class DivisionItemImpl implements DivisionItemDaoLocal {
     @Override
     public int activeCount() {
         try {
-            Query query = manager.createNamedQuery("DivisionItem.FindActiveCount");
-            return (int)  query.getSingleResult();
+            return active().size();
         }  catch(Exception e) {
             return 0;
         }
