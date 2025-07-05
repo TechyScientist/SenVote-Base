@@ -67,18 +67,23 @@ public class DivisionItemImpl implements DivisionItemDaoLocal {
     }
 
     @Override
-    public void addDivisionItem(DivisionItem item) {
-
+    public boolean addDivisionItem(DivisionItem item) {
+        try {
+            manager.persist(item);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
-    public void removeDivisionItem(DivisionItem item) {
-
+    public boolean removeDivisionItem(DivisionItem item) {
+        return false;
     }
 
     @Override
-    public void saveDivisionItem(DivisionItem item) {
-
+    public boolean saveDivisionItem(DivisionItem item) {
+        return false;
     }
 
 }

@@ -13,8 +13,8 @@ public interface DivisionItemDaoLocal {
     List<DivisionItem> active();
     int count();
     int activeCount();
-    void addDivisionItem(DivisionItem item);
-    void saveDivisionItem(DivisionItem item);
-    void removeDivisionItem(DivisionItem item);
+    boolean addDivisionItem(DivisionItem item);
+    boolean removeDivisionItem(DivisionItem item);
+    boolean saveDivisionItem(DivisionItem item);
 
 }
