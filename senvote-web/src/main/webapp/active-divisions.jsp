@@ -27,7 +27,7 @@
             <th>Division ID</th>
             <th>Type of Division</th>
             <th>Division Title</th>
-            <th>Validity Period</th>
+            <th>Voting Period</th>
             <th>Actions</th>
         </tr>
         <% for(DivisionItem item : divisionItemDaoLocal.active()) {
@@ -37,7 +37,7 @@
             <td><%= item.type%></td>
             <td><%= item.title%></td>
             <td><%= format.format(item.start) %> to <%= format.format(item.end) %></td>
-            <td><a href="division.jsp?id=<%= item.id %>">View Division <%= item.id %></a>&emsp;<a href="vote.jsp?division=<%= item.id %>">Vote on Division <%= item.id %></a></td>
+            <td><a href="division.jsp?id=<%= item.id %>">View Division</a>&emsp;<a href="vote.jsp?division=<%= item.id %>">Vote on Division</a></td>
         </tr>
         <% } %>
     </table>
