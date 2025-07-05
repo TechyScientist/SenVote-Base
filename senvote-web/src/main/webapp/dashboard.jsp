@@ -26,7 +26,7 @@
         <a href="add-user.jsp">Add a User</a>
         <a href="edit-user.jsp">Edit an Existing User</a>
         <a href="delete-user.jsp">Delete an Existing User</a>
-        <a href="create-division">Create a Division</a>
+        <a href="add-division.jsp">Add a Division</a>
         <a href="edit-division.jsp">Edit an Existing Division</a>
         <a href="delete-division.jsp">Delete an Existing Division</a>
     <% } %>
