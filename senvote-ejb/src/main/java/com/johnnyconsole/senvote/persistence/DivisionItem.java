@@ -12,15 +12,14 @@ import java.sql.Timestamp;
 })
 public class DivisionItem {
 
-    @Id
+    @Id @GeneratedValue
     public int id;
     public String type, title, text;
     public Timestamp start, end;
 
     public DivisionItem() {}
 
-    public DivisionItem(int id, String type, String title, String text, Timestamp start, Timestamp end) {
-        this.id = id;
+    public DivisionItem(String type, String title, String text, Timestamp start, Timestamp end) {
         this.type = type;
         this.title = title;
         this.text = text;

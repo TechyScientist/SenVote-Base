@@ -1,7 +1,7 @@
 package com.johnnyconsole.senvote.persistence.impl;
 
-import com.johnnyconsole.senvote.persistence.interfaces.DivisionItemDaoLocal;
 import com.johnnyconsole.senvote.persistence.DivisionItem;
+import com.johnnyconsole.senvote.persistence.interfaces.DivisionItemDaoLocal;
 
 import javax.ejb.Stateful;
 import javax.enterprise.inject.Alternative;
