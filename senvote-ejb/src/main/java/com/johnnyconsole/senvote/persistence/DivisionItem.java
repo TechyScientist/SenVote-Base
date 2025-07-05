@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 @NamedQueries({
         @NamedQuery(name="DivisionItem.FindByID", query="SELECT v FROM DivisionItem v WHERE v.id = :id"),
         @NamedQuery(name="DivisionItem.FindAll", query="SELECT v FROM DivisionItem v"),
-        @NamedQuery(name="DivisionItem.FindActive", query="SELECT v FROM DivisionItem v WHERE v.start >= NOW() AND v.end <= NOW()")
+        @NamedQuery(name="DivisionItem.FindActive", query="SELECT v FROM DivisionItem v WHERE v.start <= NOW() AND v.end > NOW()")
 })
 public class DivisionItem {
 
