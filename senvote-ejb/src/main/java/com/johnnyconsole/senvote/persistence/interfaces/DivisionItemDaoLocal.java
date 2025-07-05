@@ -6,13 +6,15 @@ import javax.ejb.Local;
 import java.util.List;
 
 @Local
-public interface DivisionItemDao {
+public interface DivisionItemDaoLocal {
 
     DivisionItem byId(int id);
     List<DivisionItem> all();
     List<DivisionItem> active();
     int count();
+    int activeCount();
     void addDivisionItem(DivisionItem item);
+    void saveDivisionItem(DivisionItem item);
     void removeDivisionItem(DivisionItem item);
 
 }

@@ -1,7 +1,7 @@
 package com.johnnyconsole.senvote.servlet;
 
 import com.johnnyconsole.senvote.persistence.User;
-import com.johnnyconsole.senvote.persistence.interfaces.DivisionItemDao;
+import com.johnnyconsole.senvote.persistence.interfaces.DivisionItemDaoLocal;
 import com.johnnyconsole.senvote.persistence.interfaces.UserDaoLocal;
 
 import javax.ejb.EJB;
@@ -17,7 +17,7 @@ public class SignInServlet extends HttpServlet {
 
     @EJB private UserDaoLocal userDao;
 
-    @EJB private DivisionItemDao divisionItemDao;
+    @EJB private DivisionItemDaoLocal divisionItemDaoLocal;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,7 +34,7 @@ public class SignInServlet extends HttpServlet {
             if(user != null) {
                 if(user.verifyPassword(password)) {
                     request.getSession().setAttribute("user", user);
-                    request.getSession().setAttribute("divisionitemdao", divisionItemDao);
+                    request.getSession().setAttribute("divisionitemdao", divisionItemDaoLocal);
                     response.sendRedirect("dashboard.jsp");
                 }
                 else {

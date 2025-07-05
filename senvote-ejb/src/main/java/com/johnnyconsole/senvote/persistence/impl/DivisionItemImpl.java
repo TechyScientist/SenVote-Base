@@ -1,6 +1,6 @@
 package com.johnnyconsole.senvote.persistence.impl;
 
-import com.johnnyconsole.senvote.persistence.interfaces.DivisionItemDao;
+import com.johnnyconsole.senvote.persistence.interfaces.DivisionItemDaoLocal;
 import com.johnnyconsole.senvote.persistence.DivisionItem;
 
 import javax.ejb.Stateful;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Stateful
 @Alternative
-public class DivisionItemImpl implements DivisionItemDao {
+public class DivisionItemImpl implements DivisionItemDaoLocal {
 
     @PersistenceContext(unitName="divisionitem")
     private EntityManager manager;
@@ -59,12 +59,27 @@ public class DivisionItemImpl implements DivisionItemDao {
     }
 
     @Override
+    public int activeCount() {
+        try {
+            Query query = manager.createNamedQuery("DivisionItem.FindActiveCount");
+            return (int)  query.getSingleResult();
+        }  catch(Exception e) {
+            return 0;
+        }
+    }
+
+    @Override
     public void addDivisionItem(DivisionItem item) {
 
     }
 
     @Override
     public void removeDivisionItem(DivisionItem item) {
+
+    }
+
+    @Override
+    public void saveDivisionItem(DivisionItem item) {
 
     }
 
