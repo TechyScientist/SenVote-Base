@@ -14,9 +14,9 @@
         </properties>
     </persistence-unit>
 
-    <persistence-unit name="voteitem">
+    <persistence-unit name="divisionitem">
         <jta-data-source>java:/EnterpriseDS</jta-data-source>
-        <class>com.johnnyconsole.senvote.persistence.VoteItem</class>
+        <class>com.johnnyconsole.senvote.persistence.DivisionItem</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
