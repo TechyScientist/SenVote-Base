@@ -31,6 +31,9 @@ a {
     display: block;
     width: fit-content;
     color: black;
+}
+
+a:not(td a) {
     margin-bottom: 10px;
 }
 
@@ -90,4 +93,16 @@ p#error {
     border-radius: 16px;
     text-align: center;
     padding: 10px;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    border: 1px solid black;
 }
