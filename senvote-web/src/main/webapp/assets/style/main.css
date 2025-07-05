@@ -28,12 +28,12 @@ h3 {
 }
 
 a {
-    display: block;
     width: fit-content;
     color: black;
 }
 
 a:not(td a) {
+    display: block;
     margin-bottom: 10px;
 }
 
