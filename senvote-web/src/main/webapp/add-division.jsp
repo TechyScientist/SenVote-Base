@@ -33,6 +33,8 @@
             <option>Yea/Nay Division</option>
             <option>Recorded Division</option>
         </select><br/><br/>
+        <label for="text">Division Text:</label>
+        <textarea id="text" name="text" placeholder="Division Text" required></textarea><br/><br/>
         <label for="start">Available Starting:</label>
         <input type="datetime-local" id="start" name="start" required/><br/><br/>
         <label for="end">Available Until:</label>
