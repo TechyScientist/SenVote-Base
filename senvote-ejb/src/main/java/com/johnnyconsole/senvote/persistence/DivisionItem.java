@@ -12,7 +12,8 @@ import java.sql.Timestamp;
 })
 public class DivisionItem {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int id;
     public String type, title, text;
     public Timestamp start, end;
