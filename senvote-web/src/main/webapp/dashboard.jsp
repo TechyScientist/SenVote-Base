@@ -22,7 +22,7 @@
     <% if(user.accountActive) %> <a href="active-divisions.jsp">Open Divisions</a>
 
     <% if(user.accessLevel == 1) { %>
-        <h3>SenVote Administration</h3>
+        <br/><h3>SenVote Administration</h3>
         <a href="add-user.jsp">Add a User</a>
         <a href="edit-user.jsp">Edit an Existing User</a>
         <a href="delete-user.jsp">Delete an Existing User</a>
