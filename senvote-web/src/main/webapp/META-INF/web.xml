@@ -16,4 +16,9 @@
         <servlet-name>DeleteUserServlet</servlet-name>
         <servlet-class>com.johnnyconsole.senvote.servlet.DeleteUserServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddDivisionServlet</servlet-name>
+        <servlet-class>com.johnnyconsole.senvote.servlet.AddDivisionServlet</servlet-class>
+    </servlet>
+
 </web-app>
