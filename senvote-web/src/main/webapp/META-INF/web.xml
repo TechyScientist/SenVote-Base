@@ -20,5 +20,9 @@
         <servlet-name>AddDivisionServlet</servlet-name>
         <servlet-class>com.johnnyconsole.senvote.servlet.AddDivisionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteDivisionServlet</servlet-name>
+        <servlet-class>com.johnnyconsole.senvote.servlet.DeleteDivisionServlet</servlet-class>
+    </servlet>
 
 </web-app>
