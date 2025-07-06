@@ -37,7 +37,7 @@
             <td><%= item.type%></td>
             <td><%= item.title%></td>
             <td><%= format.format(item.start) %> to <%= format.format(item.end) %></td>
-            <td><a href="division.jsp?id=<%= item.id %>">View Division</a>&emsp;<a href="vote.jsp?division=<%= item.id %>">Vote on Division</a></td>
+            <td><a href="division.jsp?source=active-divisions&id=<%= item.id %>">View Division</a>&emsp;<a href="vote.jsp?division=<%= item.id %>">Vote on Division</a></td>
         </tr>
         <% } %>
     </table>
