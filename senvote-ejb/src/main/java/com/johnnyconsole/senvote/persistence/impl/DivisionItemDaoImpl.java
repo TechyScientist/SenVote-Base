@@ -12,7 +12,7 @@ import java.util.List;
 
 @Stateful
 @Alternative
-public class DivisionItemImpl implements DivisionItemDaoLocal {
+public class DivisionItemDaoImpl implements DivisionItemDaoLocal {
 
     @PersistenceContext(unitName="divisionitem")
     private EntityManager manager;
@@ -78,7 +78,12 @@ public class DivisionItemImpl implements DivisionItemDaoLocal {
 
     @Override
     public boolean removeDivisionItem(DivisionItem item) {
-        return false;
+        try {
+            manager.remove((manager.contains(item) ? item : manager.merge(item)));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
