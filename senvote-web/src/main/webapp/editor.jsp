@@ -37,14 +37,15 @@
     ResultSet set = stmt.executeQuery();
     if(set.next()) { %>
   <form action="EditUserServlet" method="post">
+    <input type="hidden" id="username" name="username" value="<%= request.getParameter("username") %>"/>
     <label for="username">Username</label>
     <input type="text" name="username" id="username" value="<%= request.getParameter("username") %>" disabled required /><br/><br/>
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" value="<%= set.getString("name") %>" required/><br/><br/>
     <label for="password">Change Password:</label>
-    <input type="password" id="password" name="password" placeholder="Password" value="" /><br/><br/>
+    <input type="password" id="password" name="password" placeholder="Password"/><br/><br/>
     <label for="confirm-password">Confirm Password:</label>
-    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" value="" required/><br/><br/>
+    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password"/><br/><br/>
     <label for="access">Access Level:</label>
     <select id="access" name="accessLevel">
       <option value="0" <% if(set.getString("accessLevel").equals("0")) { %> selected <% } %>>Standard</option>
@@ -73,6 +74,7 @@
       if(set.next()) { %>
 
   <form action="EditDivisionServlet" method="post">
+    <input type="hidden" id="id" name="id" value="<%= request.getParameter("division") %>"/>
     <label for="id">Division ID:</label>
     <input type="text" id="id" name="id" value="<%= request.getParameter("division") %>" disabled required/><br/><br/>
     <label for="title">Title:</label>
@@ -83,7 +85,7 @@
       <option <% if(set.getString("type").equals("Yea/Nay Division")) { %> selected <% } %>>Yea/Nay Division</option>
       <option <% if(set.getString("type").equals("Recorded Division")) { %> selected <% } %>>Recorded Division</option>
     </select><br/><br/>
-    <label for="text">Division Text:</label>
+    <label for="text" style="vertical-align: top;">Division Text:</label>
     <textarea id="text" name="text" placeholder="Division Text" required><%= set.getString("text") %></textarea><br/><br/>
     <label for="start">Available Starting:</label>
     <input type="datetime-local" id="start" name="start" value="<%= set.getTimestamp("start").toInstant().atZone(ZoneId.of("America/Toronto")).toLocalDateTime() %>" required/><br/><br/>
@@ -92,7 +94,7 @@
     <input type="submit" name="senvote-edit-division-submit" value="Save Changes" />
   </form>
   <% } else {
-
+    response.sendRedirect("edit.jsp?error=209 (Conflict)&message=Division ID \"" + request.getParameter("division") + "\" does not exist in SenVote.");
   }
   } catch(SQLException e) {
       throw new RuntimeException(e);
