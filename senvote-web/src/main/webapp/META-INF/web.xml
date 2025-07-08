@@ -13,6 +13,10 @@
         <servlet-class>com.johnnyconsole.senvote.servlet.AddUserServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>EditUserServlet</servlet-name>
+        <servlet-class>com.johnnyconsole.senvote.servlet.EditUserServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>DeleteUserServlet</servlet-name>
         <servlet-class>com.johnnyconsole.senvote.servlet.DeleteUserServlet</servlet-class>
     </servlet>
