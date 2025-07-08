@@ -46,8 +46,8 @@
 
   <form action="editor.jsp" method="get">
     <input type="hidden" name="edit" value="user"/>
-    <label for="user">User to Edit:</label>
-    <select name="user" id="user">
+    <label for="username">User to Edit:</label>
+    <select name="username" id="username">
       <%
         try (Connection conn = Database.connect()) {
           PreparedStatement stmt = conn.prepareStatement("SELECT username, name FROM senvote_users WHERE username<>?;");
@@ -58,7 +58,7 @@
                     n = rs.getString("name");
       %>
       <option value="<%=u%>"><%=n + " (" + u + ")"%></option>
-      <%        }
+      <% }
       } catch (SQLException e) {
         throw new RuntimeException(e);
       }
@@ -70,7 +70,7 @@
   <p id="error"><strong>Error 204 (No Content)</strong>: No Users Found</p>
   <% }
   } else if(edit.equals("Division")) { %>
-  <p>You can use this page to edit an existing user.</p>
+  <p>You can use this page to edit an existing division item.</p>
   <%
     int divisions = 0;
     try (Connection conn = Database.connect()) {
