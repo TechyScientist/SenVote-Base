@@ -4,6 +4,8 @@
 <%@ page import="java.sql.PreparedStatement" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.sql.SQLException" %>
+<%@ page import="java.time.ZoneOffset" %>
+<%@ page import="java.time.ZoneId" %>
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -63,30 +65,39 @@
     throw new RuntimeException(e);
   }
   } else if(edit.equals("Division")) { %>
+  <h2>Editing: <%= edit + " " + request.getParameter("division") %> &emsp;&emsp;&emsp; <a href="dashboard.jsp" style="display: inline-block;">Return to Dashboard</a></h2>
+  <%
+    try(PreparedStatement stmt = Database.connect().prepareStatement("SELECT * FROM senvote_divisionitems WHERE id=?;")){
+      stmt.setInt(1, Integer.parseInt(request.getParameter("division")));
+      ResultSet set = stmt.executeQuery();
+      if(set.next()) { %>
 
-
-  <form action="editor.jsp" method="get">
-    <input type="hidden" name="edit" value="division"/>
-    <label for="division">Division to Edit:</label>
-    <select name="division" id="division">
-      <%
-        try (Connection conn = Database.connect()) {
-          PreparedStatement stmt = conn.prepareStatement("SELECT id, title FROM senvote_divisionitems;");
-          ResultSet rs = stmt.executeQuery();
-          while(rs.next()) {
-            String id = rs.getString("id"),
-                    title = rs.getString("title");
-      %>
-      <option value="<%=id%>"><%="Division" + id + " (" + title + ")"%></option>
-      <%        }
-      } catch (SQLException e) {
-        throw new RuntimeException(e);
-      }
-      %>
+  <form action="EditDivisionServlet" method="post">
+    <label for="id">Division ID:</label>
+    <input type="text" id="id" name="id" value="<%= request.getParameter("division") %>" disabled required/><br/><br/>
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" placeholder="Tile" value="<%= set.getString("title") %>"required/><br/><br/>
+    <label for="type">Type:</label>
+    <select id="type" name="type">
+      <option <% if(set.getString("type").equals("Consent Division")) { %> selected <% } %>> Consent Division</option>
+      <option <% if(set.getString("type").equals("Yea/Nay Division")) { %> selected <% } %>>Yea/Nay Division</option>
+      <option <% if(set.getString("type").equals("Recorded Division")) { %> selected <% } %>>Recorded Division</option>
     </select><br/><br/>
-    <input type="submit" name="senvote-edit-submit" value="Edit Division" />
+    <label for="text">Division Text:</label>
+    <textarea id="text" name="text" placeholder="Division Text" required><%= set.getString("text") %></textarea><br/><br/>
+    <label for="start">Available Starting:</label>
+    <input type="datetime-local" id="start" name="start" value="<%= set.getTimestamp("start").toInstant().atZone(ZoneId.of("America/Toronto")).toLocalDateTime() %>" required/><br/><br/>
+    <label for="end">Available Until:</label>
+    <input type="datetime-local" id="end" name="end" value="<%= set.getTimestamp("end").toInstant().atZone(ZoneId.of("America/Toronto")).toLocalDateTime() %>" required/><br/><br/>
+    <input type="submit" name="senvote-edit-division-submit" value="Save Changes" />
   </form>
   <% } else {
+
+  }
+  } catch(SQLException e) {
+      throw new RuntimeException(e);
+  }
+  } else {
     response.sendRedirect("dashboard.jsp?error=209 (Conflict)&message=Invalid URL Parameter value.");
   }
   %>

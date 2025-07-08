@@ -96,7 +96,7 @@
             String id = rs.getString("id"),
                     title = rs.getString("title");
       %>
-      <option value="<%=id%>"><%="Division" + id + " (" + title + ")"%></option>
+      <option value="<%=id%>"><%="Division " + id + " (" + title + ")"%></option>
       <%        }
       } catch (SQLException e) {
         throw new RuntimeException(e);
