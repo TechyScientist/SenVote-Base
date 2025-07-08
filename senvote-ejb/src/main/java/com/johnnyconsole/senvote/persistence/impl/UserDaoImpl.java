@@ -77,6 +77,16 @@ public class UserDaoImpl implements UserDaoLocal {
     }
 
     @Override
+    public boolean saveUser(User user) {
+        try {
+            manager.merge(user);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
     public boolean verifyUser(String username, String passwordPlainText) {
         try {
             User user = getUser(username);
