@@ -32,24 +32,24 @@
     User u = userDao.getUser(request.getParameter("username"));
   %>
   <form action="EditUserServlet" method="post">
-    <input type="hidden" id="username" name="username" value="<%= user.username %>"/>
+    <input type="hidden" id="username" name="username" value="<%= u.username %>"/>
     <label for="username">Username</label>
-    <input type="text" name="username" id="username" value="<%= user.username %>" disabled required /><br/><br/>
+    <input type="text" name="username" id="username" value="<%= u.username %>" disabled required /><br/><br/>
     <label for="name">Name:</label>
-    <input type="text" id="name" name="name" value="<%= user.name %>" required/><br/><br/>
+    <input type="text" id="name" name="name" value="<%= u.name %>" required/><br/><br/>
     <label for="password">Change Password:</label>
     <input type="password" id="password" name="password" placeholder="Password"/><br/><br/>
     <label for="confirm-password">Confirm Password:</label>
     <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password"/><br/><br/>
     <label for="access">Access Level:</label>
     <select id="access" name="accessLevel">
-      <option value="0" <% if(user.accessLevel == 0) { %> selected <% } %>>Standard</option>
-      <option value="1" <% if(user.accessLevel == 1) { %> selected <% } %>>Administrator</option>
+      <option value="0" <% if(u.accessLevel == 0) { %> selected <% } %>>Standard</option>
+      <option value="1" <% if(u.accessLevel == 1) { %> selected <% } %>>Administrator</option>
     </select><br/><br/>
     <label for="active">Account Status:</label>
     <select id="active" name="active">
-      <option value="1" <% if(user.accountActive) { %> selected <% } %>>Active - Can Vote</option>
-      <option value="0" <% if(!user.accountActive) { %> selected <% } %>>Inactive - Cannot Vote</option>
+      <option value="1" <% if(u.accountActive) { %> selected <% } %>>Active - Can Vote</option>
+      <option value="0" <% if(!u.accountActive) { %> selected <% } %>>Inactive - Cannot Vote</option>
     </select><br/><br/>
     <input type="submit" name="senvote-edit-user-submit" value="Save Changes" />
   </form>
