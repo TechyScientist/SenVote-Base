@@ -18,6 +18,7 @@ public class SignInServlet extends HttpServlet {
     @EJB private UserDaoLocal userDao;
 
     @EJB private DivisionItemDaoLocal divisionItemDaoLocal;
+    @EJB private UserDaoLocal userDaoLocal;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,6 +35,7 @@ public class SignInServlet extends HttpServlet {
             if(user != null) {
                 if(user.verifyPassword(password)) {
                     request.getSession().setAttribute("user", user);
+                    request.getSession().setAttribute("userdao", userDaoLocal);
                     request.getSession().setAttribute("divisionitemdao", divisionItemDaoLocal);
                     response.sendRedirect("dashboard.jsp");
                 }
