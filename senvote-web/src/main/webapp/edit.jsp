@@ -1,9 +1,8 @@
 <%@ page import="com.johnnyconsole.senvote.persistence.User" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="com.johnnyconsole.senvote.servlet.util.Database" %>
-<%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.SQLException" %>
+<%@ page import="com.johnnyconsole.senvote.persistence.interfaces.DivisionItemDaoLocal" %>
+<%@ page import="com.johnnyconsole.senvote.persistence.DivisionItem" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.johnnyconsole.senvote.persistence.interfaces.UserDaoLocal" %>
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -31,17 +30,8 @@
   <% if(edit.equals("User")) { %>
     <p>You can use this page to edit an existing user.</p>
   <%
-    int users = 0;
-    try (Connection conn = Database.connect()) {
-      PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(username) AS count FROM senvote_users WHERE username<>?;");
-      stmt.setString(1, user.username);
-      ResultSet rs = stmt.executeQuery();
-      users = rs.next() ? rs.getInt("count") : 0;
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-
-    if(users > 0) {
+    UserDaoLocal userDao = (UserDaoLocal) session.getAttribute("userdao");
+    if(userDao.userCount() > 0) {
   %>
 
   <form action="editor.jsp" method="get">
@@ -49,20 +39,13 @@
     <label for="username">User to Edit:</label>
     <select name="username" id="username">
       <%
-        try (Connection conn = Database.connect()) {
-          PreparedStatement stmt = conn.prepareStatement("SELECT username, name FROM senvote_users WHERE username<>?;");
-          stmt.setString(1, user.username);
-          ResultSet rs = stmt.executeQuery();
-          while(rs.next()) {
-            String u = rs.getString("username"),
-                    n = rs.getString("name");
+        List<User> userList = userDao.getUsersExcept(user.username);
+        for(User x: userList) {
+            String u = x.username,
+                    n = x.name;
       %>
       <option value="<%=u%>"><%=n + " (" + u + ")"%></option>
-      <% }
-      } catch (SQLException e) {
-        throw new RuntimeException(e);
-      }
-      %>
+      <% } %>
     </select><br/><br/>
     <input type="submit" name="senvote-edit-submit" value="Edit User" />
   </form>
@@ -71,17 +54,8 @@
   <% }
   } else if(edit.equals("Division")) { %>
   <p>You can use this page to edit an existing division item.</p>
-  <%
-    int divisions = 0;
-    try (Connection conn = Database.connect()) {
-      PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(id) AS count FROM senvote_divisionitems;");
-      ResultSet rs = stmt.executeQuery();
-      divisions = rs.next() ? rs.getInt("count") : 0;
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-
-    if(divisions > 0) {
+  <% DivisionItemDaoLocal divisionDao = (DivisionItemDaoLocal) session.getAttribute("divisionitemdao");
+    if(divisionDao.count() > 0) {
   %>
 
   <form action="editor.jsp" method="get">
@@ -89,19 +63,13 @@
     <label for="division">Division to Edit:</label>
     <select name="division" id="division">
       <%
-        try (Connection conn = Database.connect()) {
-          PreparedStatement stmt = conn.prepareStatement("SELECT id, title FROM senvote_divisionitems;");
-          ResultSet rs = stmt.executeQuery();
-          while(rs.next()) {
-            String id = rs.getString("id"),
-                    title = rs.getString("title");
+        List<DivisionItem> items = divisionDao.all();
+         for(DivisionItem item : items) {
+            String id = String.valueOf(item.id),
+                    title = item.title;
       %>
       <option value="<%=id%>"><%="Division " + id + " (" + title + ")"%></option>
-      <%        }
-      } catch (SQLException e) {
-        throw new RuntimeException(e);
-      }
-      %>
+      <%        } %>
     </select><br/><br/>
     <input type="submit" name="senvote-edit-submit" value="Edit Division" />
   </form>

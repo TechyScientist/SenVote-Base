@@ -1,9 +1,7 @@
 <%@ page import="com.johnnyconsole.senvote.persistence.User" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="java.sql.SQLException" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="com.johnnyconsole.senvote.servlet.util.Database" %>
+<%@ page import="com.johnnyconsole.senvote.persistence.interfaces.DivisionItemDaoLocal" %>
+<%@ page import="com.johnnyconsole.senvote.persistence.DivisionItem" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -18,6 +16,7 @@
 <div id="body">
     <% if(session.getAttribute("user") == null) response.sendRedirect("index.jsp?error=401 (Unauthorized)&message=You must be signed in to access this page. 3");
         User user = (User)session.getAttribute("user");
+        DivisionItemDaoLocal divisionDao = (DivisionItemDaoLocal) session.getAttribute("divisionitemdao");
         if(user.accessLevel != 1) response.sendRedirect("dashboard.jsp?error=401 (Unauthorized)&message=You must be a SenVote administrator to access this page.");
         if(request.getParameter("error") != null && request.getParameter("message") != null) { %>
         <p id="error"><strong>Error <%= request.getParameter("error") %></strong>: <%= request.getParameter("message") %></p>
@@ -28,29 +27,15 @@
     <p>You can use this page to delete a division item from the SenVote platform.</p>
     <p id="warning"><strong>Warning</strong>: Deleting a division item is permanent and cannot be undone. All votes recorded for the division item being deleted will be removed from SenVote.</p>
 
-    <%
-        int items = 0;
-        try (Connection conn = Database.connect()) {
-            PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(id) AS count FROM senvote_divisionitems;");
-            ResultSet rs = stmt.executeQuery();
-            items = rs.next() ? rs.getInt("count") : 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        if(items > 0) {
-    %>
-
+    <% if(divisionDao.count() > 0) { %>
     <form action="DeleteDivisionServlet" method="post">
         <label for="division">Division Item to Delete:</label>
         <select name="division" id="division">
-            <%
-                try (Connection conn = Database.connect()) {
-                    PreparedStatement stmt = conn.prepareStatement("SELECT id, title FROM senvote_divisionitems;");
-                    ResultSet rs = stmt.executeQuery();
-                    while(rs.next()) {
-                        String id = rs.getString("id"),
-                                title = rs.getString("title");
+            <% List<DivisionItem> divisions = divisionDao.all();
+
+                    for(DivisionItem item : divisions) {
+                        String id = String.valueOf(item.id),
+                                title = item.title;
             %>
             <option value="<%= id %>">Division <%= id + " (" + title + ")"%></option>
             <%        }

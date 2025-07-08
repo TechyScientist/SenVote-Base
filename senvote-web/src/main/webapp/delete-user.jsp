@@ -1,9 +1,6 @@
 <%@ page import="com.johnnyconsole.senvote.persistence.User" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="java.sql.SQLException" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="com.johnnyconsole.senvote.servlet.util.Database" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.johnnyconsole.senvote.persistence.interfaces.UserDaoLocal" %>
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -29,37 +26,21 @@
     <p id="warning"><strong>Warning</strong>: Deleting a SenVote account is permanent and cannot be undone. All votes made by the account being deleted will be removed from SenVote.</p>
 
     <%
-        int users = 0;
-        try (Connection conn = Database.connect()) {
-            PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(username) AS count FROM senvote_users WHERE username<>?;");
-            stmt.setString(1, user.username);
-            ResultSet rs = stmt.executeQuery();
-            users = rs.next() ? rs.getInt("count") : 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        if(users > 0) {
+        UserDaoLocal userDao = (UserDaoLocal) session.getAttribute("userdao");
+        if(userDao.userCount() > 0) {
     %>
 
     <form action="DeleteUserServlet" method="post">
         <label for="user">User to Delete:</label>
         <select name="user" id="user">
             <%
-                try (Connection conn = Database.connect()) {
-                    PreparedStatement stmt = conn.prepareStatement("SELECT username, name FROM senvote_users WHERE username<>?;");
-                    stmt.setString(1, user.username);
-                    ResultSet rs = stmt.executeQuery();
-                    while(rs.next()) {
-                        String u = rs.getString("username"),
-                                n = rs.getString("name");
+                List<User> userList = userDao.getUsersExcept(user.username);
+                for(User x: userList) {
+                    String u = x.username,
+                            n = x.name;
             %>
             <option value="<%=u%>"><%=n + " (" + u + ")"%></option>
-            <%        }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            %>
+            <%        } %>
         </select><br/><br/>
         <input type="hidden" name="sender" value="<%= user.username %>"/>
         <input type="submit" name="senvote-delete-user-submit" value="Delete User" />
