@@ -38,11 +38,7 @@
                                 title = item.title;
             %>
             <option value="<%= id %>">Division <%= id + " (" + title + ")"%></option>
-            <%        }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            %>
+            <%        } %>
         </select><br/><br/>
         <input type="hidden" name="sender" value="<%= user.username %>"/>
         <input type="submit" name="senvote-delete-division-submit" value="Delete Division" />
