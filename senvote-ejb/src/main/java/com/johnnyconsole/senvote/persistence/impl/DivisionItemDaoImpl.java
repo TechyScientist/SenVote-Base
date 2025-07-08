@@ -88,7 +88,11 @@ public class DivisionItemDaoImpl implements DivisionItemDaoLocal {
 
     @Override
     public boolean saveDivisionItem(DivisionItem item) {
-        return false;
+        try {
+            manager.merge(item);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
-
 }
