@@ -37,7 +37,7 @@
             </tr>
             <tr>
                 <th>Division Text</th>
-                <td><%= divisionItem.text %></td>
+                <td><%= divisionItem.text.replace("\n", "<br/>") %></td>
             </tr>
             <tr>
                 <th>Voting Period</th>
