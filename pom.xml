@@ -15,7 +15,7 @@
         <module>senvote-ear</module>
         <module>senvote-ejb</module>
         <module>senvote-web</module>
-        <!-- <module>senvote-restful</module> -->
+        <module>senvote-restful</module>
     </modules>
 
     <properties>
