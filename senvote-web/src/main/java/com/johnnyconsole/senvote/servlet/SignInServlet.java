@@ -44,7 +44,7 @@ public class SignInServlet extends HttpServlet {
                 }
             }
             else {
-                response.sendRedirect("index.jsp?error=401 (Unauthorized)&message=No SenVote record found for \"" + username + "\"");
+                response.sendRedirect("index.jsp?error=404 (Not Found)&message=No SenVote record found for \"" + username + "\"");
             }
         } else {
             response.sendRedirect("index.jsp?error=401 (Unauthorized)&message=You must access this page with the sign in form.");
