@@ -31,7 +31,7 @@ public class UserAPI {
         if(user == null) {
             response += "\t\"status\": 404,\n";
             response += "\t\"category\": \"Not Found\",\n";
-            response += "\t\"message\": \"User '" + username + "' not found\"\n";
+            response += "\t\"message\": \"No SenVote record found for '" + username + "'\"\n";
         }
         else {
             if(user.verifyPassword(password)) {
@@ -46,7 +46,7 @@ public class UserAPI {
             else {
                 response += "\t\"status\": 401,\n";
                 response += "\t\"category\": \"Unauthorized\",\n";
-                response += "\t\"message\": \"Incorrect password for user '" + username + "'\"\n";
+                response += "\t\"message\": \"Incorrect password\"\n";
             }
         }
         return Response.ok(response + "}").build();
