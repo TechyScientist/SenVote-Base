@@ -39,6 +39,7 @@ public class UserAPI {
                 response += "\t\t\"username\": \"" + username + "\"\n";
                 response += "\t\t\"name\": \"" + user.name + "\"\n";
                 response += "\t\t\"access\": " + user.accessLevel + "\n";
+                response += "\t\t\"active\": " + user.accountActive + "\n";
                 response += "\t}\n";
             }
             else {
