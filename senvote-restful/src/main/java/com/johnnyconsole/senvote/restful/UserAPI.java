@@ -30,6 +30,7 @@ public class UserAPI {
         User user = userDao.getUser(username);
         if(user == null) {
             response += "\t\"status\": 404,\n";
+            response += "\t\"category\": Not Found,\n";
             response += "\t\"message\": \"User '" + username + "' not found\"\n";
         }
         else {
@@ -44,6 +45,7 @@ public class UserAPI {
             }
             else {
                 response += "\t\"status\": 401,\n";
+                response += "\t\"category\": Unauthorized,\n";
                 response += "\t\"message\": \"Incorrect password for user '" + username + "'\"\n";
             }
         }
