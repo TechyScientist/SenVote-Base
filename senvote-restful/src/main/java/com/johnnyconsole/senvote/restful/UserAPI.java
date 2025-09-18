@@ -44,7 +44,7 @@ public class UserAPI {
             }
             else {
                 response += "\t\"status\": 401,\n";
-                response += "\t\"message\": \"\"Incorrect password for user '" + username + "'\"\n";
+                response += "\t\"message\": \"Incorrect password for user '" + username + "'\"\n";
             }
         }
         return Response.ok(response + "}").build();
