@@ -9,11 +9,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+
+import java.util.List;
 
 import static javax.ws.rs.core.MediaType.*;
 
@@ -110,4 +109,19 @@ public class UserAPI {
         }
         return Response.ok(response + "}").build();
     }
+
+    @GET
+    @Path("/all-except-{except}")
+    @Produces(APPLICATION_JSON)
+    public Response all_except(@NotEmpty @PathParam("except") String except) {
+        String response = "{\n\t\"users\": [\n";
+
+        List<User> users = userDao.getUsersExcept(except);
+        for (int i = 0; i < users.size(); i++) {
+            if(i < users.size() - 1) response += "\t\t\"" + users.get(i).username + "\",\n";
+            else response += "\t\t\"" + users.get(i).username + "\"\n\t]\n";
+        }
+        return Response.ok(response + "}").build();
+    }
+
 }
