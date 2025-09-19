@@ -30,27 +30,31 @@ public class UserAPI {
             @NotEmpty @FormParam("username") String username,
             @NotEmpty @FormParam("password") String password) {
         String response = "{\n";
-        User user = userDao.getUser(username);
-        if(!userDao.userExists(username)) {
-            response += "\t\"status\": 404,\n";
-            response += "\t\"category\": \"Not Found\",\n";
-            response += "\t\"message\": \"No SenVote record found for '" + username + "'\"\n";
-        }
-        else {
-            if(user.verifyPassword(password)) {
-                response += "\t\"status\": 200,\n";
-                response += "\t\"user\": {\n";
-                response += "\t\t\"username\": \"" + username + "\",\n";
-                response += "\t\t\"name\": \"" + user.name + "\",\n";
-                response += "\t\t\"access\": " + user.accessLevel + ",\n";
-                response += "\t\t\"active\": " + user.accountActive + "\n";
-                response += "\t}\n";
+        try {
+            User user = userDao.getUser(username);
+            if (!userDao.userExists(username)) {
+                response += "\t\"status\": 404,\n";
+                response += "\t\"category\": \"Not Found\",\n";
+                response += "\t\"message\": \"No SenVote record found for '" + username + "'\"\n";
+            } else {
+                if (user.verifyPassword(password)) {
+                    response += "\t\"status\": 200,\n";
+                    response += "\t\"user\": {\n";
+                    response += "\t\t\"username\": \"" + username + "\",\n";
+                    response += "\t\t\"name\": \"" + user.name + "\",\n";
+                    response += "\t\t\"access\": " + user.accessLevel + ",\n";
+                    response += "\t\t\"active\": " + user.accountActive + "\n";
+                    response += "\t}\n";
+                } else {
+                    response += "\t\"status\": 401,\n";
+                    response += "\t\"category\": \"Unauthorized\",\n";
+                    response += "\t\"message\": \"Incorrect password\"\n";
+                }
             }
-            else {
-                response += "\t\"status\": 401,\n";
-                response += "\t\"category\": \"Unauthorized\",\n";
-                response += "\t\"message\": \"Incorrect password\"\n";
-            }
+        } catch(Exception e) {
+            response += "\t\"status\": 400,\n";
+            response += "\t\"category\": \"Bad Request\",\n";
+            response += "\t\"message\": \"Missing or empty parameter\n";
         }
         return Response.ok(response + "}").build();
     }
