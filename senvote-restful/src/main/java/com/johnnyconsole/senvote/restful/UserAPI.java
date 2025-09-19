@@ -123,4 +123,42 @@ public class UserAPI {
         }
         return Response.ok(response + "}").build();
     }
+
+    @POST
+    @Path("/delete")
+    @Produces(APPLICATION_JSON)
+    public Response delete(@NotEmpty @FormParam("username") String username,
+                           @NotEmpty @FormParam("admin_username") String adminUsername) {
+
+        String response = "{\n";
+        try {
+            if (userDao.userExists(adminUsername)) {
+                User admin = userDao.getUser(adminUsername);
+                if (admin.accessLevel == 1 && admin.accountActive) {
+                    if (userDao.userExists(username)) {
+                        userDao.removeUser(userDao.getUser(username), adminUsername);
+                        response += "\t\"status\": 200,\n";
+                        response += "\t\"message\": \"User '" + username + "' deleted from SenVote successfully\"\n";
+                    } else {
+                        response += "\t\"status\": 404,\n";
+                        response += "\t\"category\": \"Not Found\",\n";
+                        response += "\t\"message\": \"No SenVote record found for '" + username + "'\"\n";
+                    }
+                } else {
+                    response += "\t\"status\": 401,\n";
+                    response += "\t\"category\": \"Unauthorized\",\n";
+                    response += "\t\"message\": \"User '" + adminUsername + "' is not a SenVote Administrator, or their account is inactive\"\n";
+                }
+            } else {
+                response += "\t\"status\": 404,\n";
+                response += "\t\"category\": \"Not Found\",\n";
+                response += "\t\"message\": \"No SenVote record found for '" + adminUsername + "'\"\n";
+            }
+        } catch(Exception e) {
+            response += "\t\"status\": 400,\n";
+            response += "\t\"category\": \"Bad Request\",\n";
+            response += "\t\"message\": \"Missing or empty parameter\n";
+        }
+        return Response.ok(response + "}").build();
+    }
 }
