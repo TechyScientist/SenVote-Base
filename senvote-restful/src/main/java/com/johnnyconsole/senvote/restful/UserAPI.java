@@ -6,15 +6,12 @@ import com.johnnyconsole.senvote.persistence.interfaces.UserDaoLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-
 import java.util.List;
 
-import static javax.ws.rs.core.MediaType.*;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Path("/user")
 @RequestScoped
