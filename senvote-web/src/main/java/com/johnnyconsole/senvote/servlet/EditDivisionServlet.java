@@ -1,10 +1,7 @@
 package com.johnnyconsole.senvote.servlet;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.johnnyconsole.senvote.persistence.DivisionItem;
-import com.johnnyconsole.senvote.persistence.User;
 import com.johnnyconsole.senvote.persistence.interfaces.DivisionItemDaoLocal;
-import com.johnnyconsole.senvote.persistence.interfaces.UserDaoLocal;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
